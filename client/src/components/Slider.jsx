@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-
+import SideBar from "../components/Navbar";
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -27,6 +27,7 @@ const Arrow = styled.div`
   left: ${(props) => props.direction === "left" && "10px"};
   right: ${(props) => props.direction === "right" && "10px"};
   margin: auto;
+  margin-left:52px;
   cursor: pointer;
   opacity: 0.5;
   z-index: 2;
@@ -35,6 +36,8 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  
+  margin-left:50px;
   transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
@@ -77,6 +80,11 @@ const Button = styled.button`
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    background-color: black;
+    color:white;
+  }
 `;
 
 const Slider = () => {
@@ -91,12 +99,15 @@ const Slider = () => {
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+    <SideBar/>
+    <Arrow direction="left"  onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
+     
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
+         
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
