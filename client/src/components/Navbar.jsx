@@ -81,7 +81,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>Bit-Shopper.</Logo>
         </Center>
         <Right>
           <Link to="/register">
