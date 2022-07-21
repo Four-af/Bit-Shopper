@@ -11,7 +11,7 @@ export const sliderItems = [
       img: "https://4.bp.blogspot.com/-GNqf-pBCPGA/U_2lXYS8OVI/AAAAAAAAAPI/o1vkQgeoss0/s1600/shinee_key.png",
       title: "FOR MEN",
       desc: "NEW ARRIVALS FOR KIDS. GET UPTO 30% DISCOUNTS.",
-      bg: "f5fafd",
+      bg: "f5fafd ",
     },
     {
       id: 3,
