@@ -81,16 +81,20 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Bit-Shopper.</Logo>
+          <Logo><Link to="/">Bit-Shopper.</Link></Logo>
         </Center>
         <Right>
-          <Link to="/register">
+          {/* <Link to="/register">
             <MenuItem>REGISTER</MenuItem>
-          </Link>
-          <Link to="/login">
             <MenuItem>SIGN IN</MenuItem>
+          </Link> */}
+          <Link to="/login">
+            <MenuItem>Connect Wallet</MenuItem>
           </Link>
 
+          <Link to="/login">
+            <MenuItem>Sign out</MenuItem>
+          </Link>
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
