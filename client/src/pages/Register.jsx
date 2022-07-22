@@ -1,3 +1,6 @@
+
+import axios from "axios";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -55,22 +58,76 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const configContentType = {
+    headers: { "Content-type": "application/json" },
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/register",
+        {
+          userName: userName,
+          email: email,
+          password: password,
+        },
+        configContentType
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+    setName("");
+    setUserName("");
+    setEmail("");
+    setPassword("");
+  };
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input
+            label="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="name"
+          />
+          {/* <Input value={name} onChange={()=>setName(name)} placeholder="last name" /> */}
+          <Input
+            label="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            placeholder="username"
+          />
+          <Input
+            label="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+          />
+          <Input
+            // type="password"
+            label="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+          />
+          {/* <Input value={name} onChange={()=>setName(name)} placeholder="confirm password" /> */}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          {/* <Button onClick={handleClick} disabled={isFetching}>
+          <Button label="register" onClick={User} /> */}
+          <Button type="submit" onClick={handleSubmit}>
+            CREATE
+          </Button>
         </Form>
       </Wrapper>
     </Container>
