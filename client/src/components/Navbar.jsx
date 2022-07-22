@@ -68,12 +68,12 @@ const routes = [
     icon: <FaHome />,
   },
   {
-    path: "/Login",
+    path: "/login",
     name: "Login",
     icon: <FaUser />,
   },
   {
-    path: "/Signup",
+    path: "/register",
     name: "SignUp",
     icon: <AiOutlineUserAdd/>,
   },
