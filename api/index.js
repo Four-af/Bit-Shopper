@@ -17,7 +17,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-const corsOrigin = "http://localhost:3000";
+const corsOrigin = ["http://localhost:3000", "http://localhost:3001"];
 
 app.use(cors({ origin: corsOrigin, optionsSuccessStatus: 200 }));
 app.use(express.json());

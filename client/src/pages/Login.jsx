@@ -1,10 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
-import { login } from "../redux/apiCalls";
+// import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-import { useHistory } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+// import { useHistory } from "react-router-dom";
+// import { loginSuccess } from "../redux/userRedux";
 
 const Container = styled.div`
   width: 100vw;
@@ -73,14 +75,38 @@ const Error = styled.span`
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
-  const history = useHistory();
+  const configContentType = {
+    headers: { "Content-type": "application/json" },
+  };
 
-  const handleClick = (e) => {
+  
+  // const dispatch = useDispatch();
+  // const { isFetching, error } = useSelector((state) => state.user);
+  // const history = useHistory();
+
+  const handleClick = async (e) => {
     e.preventDefault();
-    login(dispatch, { userName, password });
-    history.push("/");
+    // login(dispatch, { userName: userName, password: password });
+    // !isFetching ? <>loading</> : history.push("/");
+    // e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          userName: userName,
+          // email: email,
+          password: password,
+        },
+        configContentType
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+    // setName("");
+    setUserName("");
+    // setEmail("");
+    setPassword("");
   };
   return (
     <Container>
@@ -88,19 +114,26 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form>
           <Input
+            label="userName"
             placeholder="userName"
             onChange={(e) => setUserName(e.target.value)}
           />
           <Input
+            label="password"
             placeholder="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleClick} disabled={isFetching}>
+          <Button type="submit" onClick={handleClick}>
             {/* <Redirect to="/" /> */}
             LOGIN
           </Button>
-          {error && <Error>Something went wrong...</Error>}
+          Submit
+          {/* {!error ? (
+            <Error>Something went wrong...</Error>
+          ) : (
+            <>four on all fours</>
+          )} */}
           <Link>DO YOU NOT REMEMBER THE PASSWORD?</Link>
           <Link to="/register">CREATE A NEW ACCOUNT</Link>
         </Form>
