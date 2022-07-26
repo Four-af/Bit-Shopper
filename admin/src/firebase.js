@@ -5,13 +5,15 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCB-h_T2ZL-a7xt5zMvZmSh8GBXtawzL0c",
-  authDomain: "shop-889c6.firebaseapp.com",
-  projectId: "shop-889c6",
-  storageBucket: "shop-889c6.appspot.com",
-  messagingSenderId: "105110075028",
-  appId: "1:105110075028:web:7cee5adf1ed39f597e6681",
+  apiKey: "AIzaSyDXBL05MRe3GIAxsIUAm3Q1hf0dJfZTXtI",
+  authDomain: "bit-shopper.firebaseapp.com",
+  projectId: "bit-shopper",
+  storageBucket: "bit-shopper.appspot.com",
+  messagingSenderId: "569760289446",
+  appId: "1:569760289446:web:d457a25a72ed54002b9a67",
+  measurementId: "G-X9Z9C0BEBB"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

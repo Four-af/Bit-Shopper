@@ -1,13 +1,40 @@
 import { loginFailure, loginStart, loginSuccess } from "./userRedux";
-import { publicRequest } from "../requestMethods";
+// import { publicRequest } from "../requestMethods";
+import axios from "axios";
 
-export const login = async (dispatch, user) => {
+const configContentType = {
+  headers: { "Content-type": "application/json" },
+};
+export const login = async (
+  dispatch,
+  { userName: userName, password: password }
+) => {
   dispatch(loginStart());
+  // try {
+  //   const res = await axios.post("http://localhost:5000/api/auth/login", user);
+  //   console.log("data", res.data);
+  //   dispatch(loginSuccess(res.data));
+  // } catch (err) {
+  //   dispatch(loginFailure());
+  //   console.log(err);
+  // }
   try {
-    const res = await publicRequest.post("/auth/login", user);
-    console.log("data", res.data);
-    dispatch(loginSuccess(res.data));
+    console.log(userName, password);
+    const res = await axios.post(
+      "http://localhost:5000/api/auth/login",
+      {
+        userName: userName,
+        // email: email,
+        password: password,
+      },
+      configContentType
+    );
+    console.log(res);
   } catch (err) {
-    dispatch(loginFailure());
+    console.log(err);
   }
+  // setName("");
+  // setUserName("");
+  // setEmail("");
+  // setPassword("");
 };

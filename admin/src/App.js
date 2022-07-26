@@ -25,7 +25,7 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        {admin && (
+        {!admin && (
           <>
             <Topbar />
             <div className="container">
