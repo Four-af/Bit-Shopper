@@ -36,7 +36,7 @@ const Login = () => {
       />
       <button onClick={handleClick} style={{ padding: 10, width:100 }}>
         Login
-      </button>
+      </button>   
     </div>
   );
 };

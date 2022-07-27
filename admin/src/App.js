@@ -18,14 +18,18 @@ import Login from "./pages/login/Login";
 import { useSelector } from "react-redux";
 
 function App() {
-  const admin = useSelector((state) => state.user.currentUser.isAdmin);
+  // const admin = useSelector((state) => state.user.currentUser.isAdmin);
+  const admin = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root")).user
+  ).currentUser.isAdmin;
+
   return (
     <Router>
       <Switch>
         <Route path="/login">
           <Login />
         </Route>
-        {!admin && (
+        {admin ? (
           <>
             <Topbar />
             <div className="container">
@@ -52,6 +56,10 @@ function App() {
                 <NewProduct />
               </Route>
             </div>
+          </>
+        ) : (
+          <>
+            <Login />
           </>
         )}
       </Switch>
