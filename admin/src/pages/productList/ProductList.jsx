@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts } from "../../redux/apiCalls";
+import Wrapper from "../../components/wrapper";
 
 export default function ProductList() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export default function ProductList() {
         );
       },
     },
+
     { field: "inStock", headerName: "Stock", width: 200 },
     {
       field: "price",
@@ -60,15 +62,17 @@ export default function ProductList() {
   ];
 
   return (
-    <div className="productList">
-      <DataGrid
-        rows={products}
-        disableSelectionOnClick
-        columns={columns}
-        getRowId={(row) => row._id}
-        pageSize={8}
-        checkboxSelection
-      />
-    </div>
+    <Wrapper>
+      <div className="productList">
+        <DataGrid
+          rows={products}
+          disableSelectionOnClick
+          columns={columns}
+          getRowId={(row) => row._id}
+          pageSize={8}
+          checkboxSelection
+        />
+      </div>
+    </Wrapper>
   );
 }

@@ -1,4 +1,5 @@
 const Cart = require("../models/Cart");
+const { makeSafe } = require("./helpers");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -7,64 +8,45 @@ const {
 
 const router = require("express").Router();
 
-//CREATE
-
-router.post("/", verifyToken, async (req, res) => {
+// CREATE
+const createCart = async (req, res) => {
   const newCart = new Cart(req.body);
+  const savedCart = await newCart.save();
+  return res.status(200).json(savedCart);
+};
 
-  try {
-    const savedCart = await newCart.save();
-    res.status(200).json(savedCart);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// UPDATE
+const updateCart = async (req, res) => {
+  const updatedCart = await Cart.findByIdAndUpdate(
+    req.params.id,
+    { $set: req.body },
+    { new: true }
+  );
+  return res.status(200).json(updatedCart);
+};
 
-//UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const updatedCart = await Cart.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedCart);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// DELETE
+const deleteCart = async (req, res) => {
+  await Cart.findByIdAndDelete(req.params.id);
+  return res.status(200).json("Cart has been deleted...");
+};
 
-//DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json("Cart has been deleted...");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// GET USER CART
+const getUserCart = async (req, res) => {
+  const cart = await Cart.findOne({ userId: req.params.userId });
+  return res.status(200).json(cart);
+};
 
-//GET USER CART
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const cart = await Cart.findOne({ userId: req.params.userId });
-    res.status(200).json(cart);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// GET ALL
+const getAll = async (req, res) => {
+  const carts = await Cart.find();
+  return res.status(200).json(carts);
+};
 
-// //GET ALL
-
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const carts = await Cart.find();
-    res.status(200).json(carts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.post("/", verifyToken, makeSafe(createCart));
+router.put("/:id", verifyTokenAndAuthorization, makeSafe(updateCart));
+router.delete("/:id", verifyTokenAndAuthorization, makeSafe(deleteCart));
+router.get("/find/:userId", verifyTokenAndAuthorization, makeSafe(getUserCart));
+router.get("/", verifyTokenAndAdmin, makeSafe(getAll));
 
 module.exports = router;

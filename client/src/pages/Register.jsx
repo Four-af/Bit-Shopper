@@ -97,7 +97,6 @@ const Register = () => {
             onChange={(e) => setName(e.target.value)}
             placeholder="name"
           />
-          {/* <Input value={name} onChange={()=>setName(name)} placeholder="last name" /> */}
           <Input
             label="userName"
             value={userName}
@@ -117,13 +116,10 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
           />
-          {/* <Input value={name} onChange={()=>setName(name)} placeholder="confirm password" /> */}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          {/* <Button onClick={handleClick} disabled={isFetching}>
-          <Button label="register" onClick={User} /> */}
           <Button type="submit" onClick={handleSubmit}>
             CREATE
           </Button>
