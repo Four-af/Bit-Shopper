@@ -1,13 +1,21 @@
+require("dotenv").config();
 require('@nomiclabs/hardhat-waffle');
+
+const { API_URL, PRIVATE_KEY } = process.env;
 
 module.exports = {
   solidity: '0.8.9',
+  defaultNetwork: "hardhat",
+  paths: {
+    artifacts: "./artifacts",
+  },
   networks: {
-    goerli: {
-      // test network https key
-      url: 'https://eth-goerli.g.alchemy.com/v2/oJkP9HjycNvuXdOw4iXuKpTC5L6yTQPR',
-      // your account's private key
-      accounts: ['683533ef663b1194efc15bdf1322dfec3804c88c25e0e5ad51fbfb4602b93b97'],
+    hardhat: {
+      chainId: 1337,
     },
+    goerli: {
+      url: API_URL,
+      accounts: [`0x${PRIVATE_KEY}`]
+    }
   },
 };
