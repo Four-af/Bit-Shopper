@@ -71,7 +71,7 @@ const Product = ({ item }) => {
   return (
     <Container>
       <Circle />
-      <Image src={item.img} />
+      <Image src="https://th.bing.com/th/id/OIP.PjHm5W8M4cFVu8C9UVz_uwHaHa?pid=ImgDet&rs=1 "/>
       <Info>
         <Icon>
           <ShoppingCartOutlined />
