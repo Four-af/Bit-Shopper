@@ -16,7 +16,8 @@ const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 20px;
-  ${mobile({ padding: "10px" })}
+  margin-left: 50px;
+  ${mobile({ padding: "10px", margin: "50px" })}
 `;
 
 const Title = styled.h1`
@@ -189,7 +190,7 @@ const Cart = () => {
   return (
     <Container>
       <Navbar />
-      <Announcement />
+      {/* <Announcement /> */}
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>

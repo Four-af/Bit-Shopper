@@ -2,6 +2,7 @@
 // import {React,useState} from "react";
 // import { Link } from "react-router-dom";
 import "./Navbar.css";
+import {Link} from "react-router-dom"
 // import { GiHamburgerMenu } from 'react-icons/gi'
 // import { BsSearch } from 'react-icons/bs'
 // import { ImCross } from 'react-icons/im'
@@ -168,7 +169,10 @@ const SideBar = ({ children }) => {
                 exit="hidden"
                 className="logo"
               >
-                Bit-Shopping
+                <Link to="/" style={{textDecoration : 'none'}}>
+
+                Bit-Shopper
+                </Link>
               </motion.h1>
             )}
           </AnimatePresence>

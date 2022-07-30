@@ -90,14 +90,14 @@ export default function NewProduct() {
       <div className="newProduct">
         <h1 className="addProductTitle">New Product</h1>
         <form className="addProductForm">
-          {/* <div className="addProductItem">
+          <div className="addProductItem">
             <label>Image</label>
             <input
               type="file"
               id="file"
               onChange={(e) => setFile(e.target.files[0])}
             />
-          </div> */}
+          </div>
           <div className="addProductItem">
             <label>Title</label>
             <input
