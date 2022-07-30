@@ -221,8 +221,9 @@
   background:black;
   color: white;
   height: 100vh;
+  top: 0px;
   overflow-y: auto;
-  position: absolute;
+  position: fixed;
   z-index: 1;
 }
 

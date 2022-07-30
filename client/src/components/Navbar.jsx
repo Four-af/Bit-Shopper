@@ -1,7 +1,8 @@
 // import { useSelector } from "react-redux";
 // import {React,useState} from "react";
-// import { Link } from "react-router-dom"; 
+// import { Link } from "react-router-dom";
 import "./Navbar.css";
+import {Link} from "react-router-dom"
 // import { GiHamburgerMenu } from 'react-icons/gi'
 // import { BsSearch } from 'react-icons/bs'
 // import { ImCross } from 'react-icons/im'
@@ -13,7 +14,7 @@ import "./Navbar.css";
 //   return (
 //     <>
 //       <nav className='navbar'>
-         
+
 //         <div className={click ? "search-icon-responsive" : "search-icon"} onClick={() => setClick(false)}>
 
 //           <input type="search" placeholder="Search" />
@@ -29,8 +30,6 @@ import "./Navbar.css";
 //             <Badge badgeContent={quantity} color="primary">
 //               </Badge>
 //               </li>
-
-  
 //           </Link>
 //           <Link to="/register" className='cart'>
 //           <li>SignUp</li>
@@ -48,34 +47,31 @@ import "./Navbar.css";
 //     </>
 //   );
 // };
-
 // export default Navbar;
 
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
-import { MdMessage } from "react-icons/md";
-import { BiAnalyse, BiSearch } from "react-icons/bi";
-import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiOutlineUserAdd } from "react-icons/ai";
+import {
+  FaBars,
+  FaHome,
+  FaLock,
+  FaMoneyBill,
+  FaUser,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import { BiCog, BiSearch } from "react-icons/bi";
+import { AiFillHeart } from "react-icons/ai";
 import { BsFillCartFill } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion/dist/framer-motion";
 import SidebarMenu from "./SidebarMenu";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutSuccess } from "../redux/userRedux";
+
 const routes = [
   {
     path: "/",
     name: "Home",
     icon: <FaHome />,
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: <FaUser />,
-  },
-  {
-    path: "/register",
-    name: "SignUp",
-    icon: <AiOutlineUserAdd/>,
   },
   {
     path: "/cart",
@@ -87,7 +83,7 @@ const routes = [
     name: "Saved",
     icon: <AiFillHeart />,
   },
- 
+
   {
     path: "/settings",
     name: "Settings",
@@ -111,139 +107,144 @@ const routes = [
       },
     ],
   },
- 
 ];
 
+const inputAnimation = {
+  hidden: {
+    width: 0,
+    padding: 0,
+    transition: {
+      duration: 0.2,
+    },
+  },
+  show: {
+    width: "140px",
+    padding: "15px 15px",
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
+
+const showAnimation = {
+  hidden: {
+    width: 0,
+    opacity: 0,
+    transition: { duration: 0.5 },
+  },
+  show: {
+    opacity: 1,
+    width: "auto",
+    transition: { duration: 0.5 },
+  },
+};
+
 const SideBar = ({ children }) => {
+  const user = useSelector((state) => state.user.currentUser);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "15px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
+  const dispatch = useDispatch();
 
-  const showAnimation = {
-    hidden: {
-      width: 0,
-      opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    show: {
-      opacity: 1,
-      width: "auto",
-      transition: {
-        duration: 0.5,
-      },
-    },
+  const handleLogout = () => {
+    window.localStorage.removeItem("persist:root");
+    dispatch(logoutSuccess());
   };
 
   return (
-    <>
-      <div className="main-container">
-        <motion.div
-          animate={{
-            width: isOpen ? "250px" : "60px",
-            transition: {
-              duration: 0.5,
-              type: "spring",
-             
-            },
-          }}
-          className={`sidebar `}
-        >
-          <div className="top_section">
-            <AnimatePresence>
-              {isOpen && (
-                <motion.h1
-                  variants={showAnimation}
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  className="logo"
-                >
-                 Bit-Shopping
-                </motion.h1>
-              )}
-            </AnimatePresence>
+    <div className="main-container">
+      <motion.div
+        animate={{
+          width: isOpen ? "250px" : "60px",
+          transition: { duration: 0.5, type: "spring" },
+        }}
+        className={`sidebar `}
+      >
+        <div className="top_section">
+          <AnimatePresence>
+            {isOpen && (
+              <motion.h1
+                variants={showAnimation}
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                className="logo"
+              >
+                <Link to="/" style={{textDecoration : 'none'}}>
 
-            <div className="bars">
-              <FaBars onClick={toggle} />
-            </div>
-          </div>
-          <div className="search">
-            <div className="search_icon">
-              <BiSearch />
-            </div>
-            <AnimatePresence>
-              {isOpen && (
-                <motion.input
-                  initial="hidden"
-                  animate="show"
-                  exit="hidden"
-                  variants={inputAnimation}
-                  type="text"
-                  placeholder="Search"
-                />
-              )}
-            </AnimatePresence>
-          </div>
-          <section className="routes">
-            {routes.map((route, index) => {
-              if (route.subRoutes) {
-                return (
-                  <SidebarMenu
-                    setIsOpen={setIsOpen}
-                    route={route}
-                    showAnimation={showAnimation}
-                    isOpen={isOpen}
-                  />
-                );
-              }
+                Bit-Shopper
+                </Link>
+              </motion.h1>
+            )}
+          </AnimatePresence>
 
+          <div className="bars">
+            <FaBars onClick={toggle} />
+          </div>
+        </div>
+        <div className="search">
+          <div className="search_icon">
+            <BiSearch />
+          </div>
+          <AnimatePresence>
+            {isOpen && (
+              <motion.input
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                variants={inputAnimation}
+                type="text"
+                placeholder="Search"
+              />
+            )}
+          </AnimatePresence>
+        </div>
+        <section className="routes">
+          {routes.map((route, index) => {
+            if (route.subRoutes) {
               return (
-                <NavLink
-                  to={route.path}
+                <SidebarMenu
                   key={index}
-                  className="link"
-                  activeClassName="active"
-                >
-                  <div className="icon">{route.icon}</div>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        variants={showAnimation}
-                        initial="hidden"
-                        animate="show"
-                        exit="hidden"
-                        className="link_text"
-                      >
-                        {route.name}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </NavLink>
+                  setIsOpen={setIsOpen}
+                  route={route}
+                  showAnimation={showAnimation}
+                  isOpen={isOpen}
+                />
               );
-            })}
-          </section>
-        </motion.div>
+            }
 
-        <main>{children}</main>
-      </div>
-    </>
+            return (
+              <NavLink
+                to={route.path}
+                key={index}
+                className="link"
+                activeClassName="active"
+              >
+                <div className="icon">{route.icon}</div>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      variants={showAnimation}
+                      initial="hidden"
+                      animate="show"
+                      exit="hidden"
+                      className="link_text"
+                    >
+                      {route.name}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </NavLink>
+            );
+          })}
+          {user && (
+            <div className="icon link">
+              <FaSignOutAlt onClick={handleLogout} />
+            </div>
+          )}
+        </section>
+      </motion.div>
+      <main>{children}</main>
+    </div>
   );
 };
 

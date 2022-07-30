@@ -1,12 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-// import { login } from "../redux/apiCalls";
+import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
-// import { useDispatch, useSelector } from "react-redux";
-// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-// import { useHistory } from "react-router-dom";
-// import { loginSuccess } from "../redux/userRedux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -61,81 +59,62 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`;
-
 const Error = styled.span`
   color: red;
 `;
 
-const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const configContentType = {
-    headers: { "Content-type": "application/json" },
-  };
+const linkStyles = {
+  margin: "5px 0px",
+  fontSize: "12px",
+  textDecoration: "underline",
+  cursor: "pointer",
+};
 
-  
-  // const dispatch = useDispatch();
-  // const { isFetching, error } = useSelector((state) => state.user);
-  // const history = useHistory();
+const Login = () => {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => state.user);
 
   const handleClick = async (e) => {
     e.preventDefault();
-    // login(dispatch, { userName: userName, password: password });
-    // !isFetching ? <>loading</> : history.push("/");
-    // e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          userName: userName,
-          // email: email,
-          password: password,
-        },
-        configContentType
-      );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+    await login(dispatch, { username, password });
+    if (!error) {
+      navigate("/", { replace: true });
+      setUserName("");
+      setPassword("");
     }
-    // setName("");
-    setUserName("");
-    // setEmail("");
-    setPassword("");
   };
+
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
+        {error && <Error>Something went wrong...</Error>}
         <Form>
           <Input
             label="userName"
+            value={username}
             placeholder="userName"
             onChange={(e) => setUserName(e.target.value)}
           />
           <Input
             label="password"
+            value={password}
             placeholder="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button type="submit" onClick={handleClick}>
-            {/* <Redirect to="/" /> */}
             LOGIN
           </Button>
           Submit
-          {/* {!error ? (
-            <Error>Something went wrong...</Error>
-          ) : (
-            <>four on all fours</>
-          )} */}
-          <Link>DO YOU NOT REMEMBER THE PASSWORD?</Link>
-          <Link to="/register">CREATE A NEW ACCOUNT</Link>
+          {/* <Link>DO YOU NOT REMEMBER THE PASSWORD?</Link> */}
+          <Link to="/register" style={linkStyles}>
+            CREATE A NEW ACCOUNT
+          </Link>
         </Form>
       </Wrapper>
     </Container>

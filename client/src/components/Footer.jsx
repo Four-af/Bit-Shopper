@@ -11,7 +11,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  display: flex;
+  display: flex; 
+  margin-left:50px;
   ${mobile({ flexDirection: "column" })}
 `;
 
@@ -71,7 +72,6 @@ const Right = styled.div`
   flex: 1;
   padding: 20px;
   ${mobile({ backgroundColor: "#fff8f8" })}
-
 `;
 
 const ContactItem = styled.div`
@@ -81,7 +81,7 @@ const ContactItem = styled.div`
 `;
 
 const Payment = styled.img`
-    width: 50%;
+  width: 50%;
 `;
 
 const Footer = () => {
@@ -90,9 +90,9 @@ const Footer = () => {
       <Left>
         <Logo>Bit-Shopper.</Logo>
         <Desc>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
+          The Bit-Shopper is an eCommerce web-app based on blockchain
+          technology that allows users to buy entities and receive a blockchain
+          based warranty system using decaying non-fungible tokens (NFTs)
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">
@@ -114,12 +114,13 @@ const Footer = () => {
         <List>
           <ListItem>Home</ListItem>
           <ListItem>Cart</ListItem>
-          <ListItem>Man Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
+          {/* <ListItem>Man Fashion</ListItem> */}
+          {/* <ListItem>Woman Fashion</ListItem> */}
+          {/* <ListItem>Accessories</ListItem> */}
+          <ListItem>eWarranty</ListItem>
           <ListItem>My Account</ListItem>
           <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
+          <ListItem>eWallet</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Terms</ListItem>
         </List>
@@ -127,15 +128,16 @@ const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{marginRight:"10px"}}/> 622 Dixie Path , South Tobinchester 98336
+          <Room style={{ marginRight: "10px" }} /> Find Team Swan online
         </ContactItem>
         <ContactItem>
-          <Phone style={{marginRight:"10px"}}/> +1 234 56 78
+          <Phone style={{ marginRight: "10px" }} /> +91 9455094495
         </ContactItem>
         <ContactItem>
-          <MailOutline style={{marginRight:"10px"}} /> contact@bit-shopper.dev
+          <MailOutline style={{ marginRight: "10px" }} />{" "}
+          aimzfatima08@gmail.com
         </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
+        <Payment src="https://ibb.co/ZGgw81d" />
       </Right>
     </Container>
   );
