@@ -158,6 +158,7 @@ const Product = () => {
       {/* <Announcement /> */}
       <Wrapper>
         <ImgContainer>
+        {/* <Image src="https://ibb.co/QktYYXV"/> */}
           <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
